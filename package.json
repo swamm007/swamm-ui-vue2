@@ -1,0 +1,22 @@
+{
+  "name": "swamm-ui-vue2",
+  "version": "1.0.0",
+  "description": "vue2版本组件库",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com.cnpmjs.org/swamm007/swamm-ui-vue2.git"
+  },
+  "keywords": [
+    "vue"
+  ],
+  "author": "swamm",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.1"
+  }
+}
