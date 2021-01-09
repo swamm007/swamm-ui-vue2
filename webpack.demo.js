@@ -3,17 +3,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-console.log('当前打包环境为---production---')
+console.log('当前打包环境为---development---')
 module.exports = {
-	mode: 'production',
+	mode: 'development',
 	entry: {
-		app: ['./src/index.js']
+		app: ['./examples/main.js']
 	},
 	output: {
-		filename: "swamm-ui.umd.js",
-		path: path.resolve(__dirname, 'lib'),
-		library: 'SWAMM',
-		libraryTarget: 'umd'
+		filename: "[name][chunkhash:8].js",
+		path: path.resolve(__dirname, 'dist'),
+		// library: 'SWAMM',
+		// libraryTarget: 'umd'
 	},
 	resolve: {
 		extensions: ['.js', '.vue', '.json'],
@@ -25,20 +25,25 @@ module.exports = {
 		},
 	},
 	// 不需要把Vue打入生产包中
-	externals: {
-		vue: {
-			root: 'Vue'
-		}
+	// externals: {
+	// 	vue: {
+	// 		root: 'Vue'
+	// 	}
+  // },
+	devServer: {
+		contentBase: './dist',
+		port: 8085,
+		hot: true,
+		open: true
 	},
-	optimization: {
-    minimize: false
-  },
+	devtool: 'inline-source-map',
 	module: {
 		rules: [
       {
-        test: /\.js$/,
-        loader: 'babel-loader'
-      },
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: "babel-loader"
+			},
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -64,11 +69,11 @@ module.exports = {
 	},
 	plugins: [
 		new CleanWebpackPlugin(),
-		// new HtmlWebpackPlugin({
-    //   template: './examples/index.html',
-    //   filename: 'index.html',
-    //   favicon: './examples/favicon.ico'
-		// }),
+		new HtmlWebpackPlugin({
+      template: './examples/index.html',
+      filename: 'index.html',
+      favicon: './examples/favicon.ico'
+		}),
 		new VueLoaderPlugin(),
 		new ProgressBarPlugin()
 	]
